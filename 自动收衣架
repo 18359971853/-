@@ -1,0 +1,25 @@
+#include <Sodaq_SHT2x.h>
+
+#include <Wire.h>//调用收发数据所使用的库函数
+
+ 
+void setup() {
+  Serial.begin(9600);//初始化串口通信，并设置波特率9600
+  pinMode(10,OUTPUT);
+  Wire.begin(); 
+  
+}
+
+
+void loop() {
+  float Temperature,Humidity;
+  Temperature = SHT2x.GetTemperature();
+  Humidity = SHT2x.GetHumidity();
+  if (Humidity > 70)//这里自己设置临界值
+  {
+    digitalWrite(10,HIGH);
+  } else {
+    digitalWrite(10,LOW);
+  }
+Serial.println(String(Temperature)+"--"+String(Humidity)+"%");
+}
